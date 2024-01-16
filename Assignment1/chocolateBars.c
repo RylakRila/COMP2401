@@ -7,7 +7,7 @@
 // 2 - Aero
 // 3 - Smarties
 // 4 - Crunchie
-const char *CHOCO_BARS[5] = {"Oh Henry", "Coffee Crisp", "Aero", "Smarties",
+const char* CHOCO_BARS[5] = {"Oh Henry", "Coffee Crisp", "Aero", "Smarties",
                              "Crunchie"};
 
 const float PRICES[5] = {0.87, 0.88, 0.50, 1.29, 0.98};
@@ -22,7 +22,7 @@ int boxOhHenry, boxCoffeeCrisp, boxAero, boxSmarties, boxCrunchie;
 
 // since this code uses array to store info of each chocolate type
 // we will need a way to map index of array to # boxes variable
-int *getBoxNumByIndex(int i) {
+int* getBoxNumByIndex(int i) {
     switch (i) {
     case 0:
         return &boxOhHenry;
@@ -42,32 +42,32 @@ int *getBoxNumByIndex(int i) {
 int main() {
     // get the size of array by divide memory size of array by memory size of
     // item in array
-    int types = sizeof(CHOCO_BARS) / sizeof(char *);
-
+    int types = sizeof(CHOCO_BARS) / sizeof(char*);
+    
     for (int i = 0; i < types; i++)
         printf("%d. %-16s$%.2f each\n", i + 1, CHOCO_BARS[i], PRICES[i]);
-
+    
     printf("\n");
-
+    
     for (int i = 0; i < types; i++) {
         printf("How many boxes of %s bars would you like (%d bars per box)? ",
                CHOCO_BARS[i], BARS_PER_BOX[i]);
-
+        
         // the address of each # boxes variable
         // use it in scanf() to capture user input
-        int *userInput = getBoxNumByIndex(i);
-
+        int* userInput = getBoxNumByIndex(i);
+        
         scanf("%d", userInput);
         while (getchar() != '\n')
             ;
     }
-
+    
     printf("\n");
-
+    
     // printf("%d %d %d %d %d", boxOhHenry, boxCoffeeCrisp, boxAero,
     // boxSmarties, boxCrunchie);
     float totalCost = 0.0;
-
+    
     for (int i = 0; i < types; i++) {
         // get the address of each # boxes variable
         // and dereference it by *
@@ -80,7 +80,7 @@ int main() {
                currBoxNum, CHOCO_BARS[i], BARS_PER_BOX[i], PRICES[i],
                costPerType);
     }
-
+    
     printf(
         "-----------------------------------------------------------\n"); // 59
     printf("%-47s= $ %8.2f\n", "Sub Total", totalCost);
@@ -89,6 +89,6 @@ int main() {
     totalCost += tax;
     printf("===========================================================\n");
     printf("%-47s= $ %8.2f\n", "Amount Due", totalCost);
-
+    
     return 0;
 }

@@ -18,7 +18,7 @@ typedef struct Coordinate {
 // generate random number within circle using polar coordinate
 coordinate_t randCoord() {
     coordinate_t coord;
-
+    
     // multiple 2pi by random number in [0, 1]
     // to get an angle theta between 0 and 2pi
     double theta = (rand() / (double)RAND_MAX) * 2 * M_PI;
@@ -30,62 +30,62 @@ coordinate_t randCoord() {
     // to located on first half of the radius, which eventually on 1/4
     // of area of circle around center. Thus, for uniform distribution,
     // we take square root to cancel this
-
+    
     // convert polar to rectangular
     coord.x = r * cos(theta);
     coord.y = r * sin(theta);
-
+    
     return coord;
 }
 
 double euclideanDistance(coordinate_t a, coordinate_t b) {
     double distanceX = a.x - b.x;
     double distanceY = a.y - b.y;
-
+    
     return sqrt(distanceX * distanceX + distanceY * distanceY);
 }
 
 int main() {
     int numDrivers = 0;
     int numPackages = 0;
-
+    
     scanf("%d", &numDrivers);
     while (getchar() != '\n');
-
+    
     if (numDrivers < 2 || numDrivers > 200)
         exit(0);
-
+    
     scanf("%d", &numPackages);
     while (getchar() != '\n');
-
+    
     if (numPackages < 10 || numPackages > 50000)
         exit(0);
-
+    
     printf("%d %d\n", numDrivers, numPackages);
-
+    
     // set random seed as current time
     srand(time(NULL));
-
+    
     // randomly generates coordinate for drivers
     coordinate_t driversCoor[numDrivers];
-
+    
     for (int i = 0; i < numDrivers; i++) {
         driversCoor[i] = randCoord();
     }
-
+    
     // set random seed as current process id
     srand(getpid());
-
+    
     // an array to store coordinates of packages
     coordinate_t packagesCoor[numPackages];
-
+    
     // an array to store index of each driver for each package
     int driverIndices[numPackages];
-
+    
     for (int i = 0; i < numPackages; i++) {
         // randomly generates coordinate for packages
         packagesCoor[i] = randCoord();
-
+        
         // for current packages, calculate distance between
         // package and each driver, find smallest
         double smallest = 60.0;
@@ -99,12 +99,12 @@ int main() {
                 driverIndices[i] = j;
             }
         }
-
+        
         printf("%.2f %.2f %d ", packagesCoor[i].x, packagesCoor[i].y,
                driverIndices[i]);
     }
-
+    
     printf("\n");
-
+    
     return 0;
 }
