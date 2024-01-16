@@ -51,7 +51,7 @@ int main() {
 
     scanf("%d", &numDrivers);
 
-    if (numDrivers < 2 || numDrivers > 100) exit(0);
+    if (numDrivers < 2 || numDrivers > 200) exit(0);
     
     scanf("%d", &numPackages);
 
