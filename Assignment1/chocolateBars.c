@@ -58,8 +58,7 @@ int main() {
         int* userInput = getBoxNumByIndex(i);
         
         scanf("%d", userInput);
-        while (getchar() != '\n')
-            ;
+        while (getchar() != '\n');
     }
     
     printf("\n");
