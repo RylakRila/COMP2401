@@ -50,21 +50,25 @@ int main() {
     int numPackages = 0;
 
     scanf("%d", &numDrivers);
+    while (getchar() != '\n');
 
-    if (numDrivers < 2 || numDrivers > 200) exit(0);
-    
+    if (numDrivers < 2 || numDrivers > 200)
+        exit(0);
+
     scanf("%d", &numPackages);
+    while (getchar() != '\n');
 
-    if (numPackages < 10 || numPackages > 50000) exit(0);
+    if (numPackages < 10 || numPackages > 50000)
+        exit(0);
 
     printf("%d %d\n", numDrivers, numPackages);
 
     // set random seed as current time
-    srand(time(NULL)); 
+    srand(time(NULL));
 
     // randomly generates coordinate for drivers
     coordinate_t driversCoor[numDrivers];
-    
+
     for (int i = 0; i < numDrivers; i++) {
         driversCoor[i] = randCoord();
     }
