@@ -17,29 +17,10 @@ const int BARS_PER_BOX[5] = {24, 36, 48, 24, 36};
 // HST constant
 const float HST = 0.13;
 
-// global variable to store number of boxes of each chocolate type
-int boxOhHenry, boxCoffeeCrisp, boxAero, boxSmarties, boxCrunchie;
-
-// since this code uses array to store info of each chocolate type
-// we will need a way to map index of array to # boxes variable
-int* getBoxNumByIndex(int i) {
-    switch (i) {
-    case 0:
-        return &boxOhHenry;
-    case 1:
-        return &boxCoffeeCrisp;
-    case 2:
-        return &boxAero;
-    case 3:
-        return &boxSmarties;
-    case 4:
-        return &boxCrunchie;
-    default:
-        return NULL;
-    }
-}
-
 int main() {
+    // global variable array to store number of boxes of each chocolate type
+    int numBoxes[5] = {0, 0, 0, 0, 0};
+    
     // get the size of array by divide memory size of array by memory size of
     // item in array
     int types = sizeof(CHOCO_BARS) / sizeof(char*);
@@ -53,41 +34,36 @@ int main() {
         printf("How many boxes of %s bars would you like (%d bars per box)? ",
                CHOCO_BARS[i], BARS_PER_BOX[i]);
         
-        // the address of each # boxes variable
+        // the address of each # boxes
         // use it in scanf() to capture user input
-        int* userInput = getBoxNumByIndex(i);
-        
-        scanf("%d", userInput);
+        scanf("%d", &(numBoxes[i]));
         while (getchar() != '\n');
     }
     
-    printf("\n");
+    printf("\n"); // formatting
     
     // printf("%d %d %d %d %d", boxOhHenry, boxCoffeeCrisp, boxAero,
     // boxSmarties, boxCrunchie);
     float totalCost = 0.0;
     
     for (int i = 0; i < types; i++) {
-        // get the address of each # boxes variable
-        // and dereference it by *
-        int currBoxNum = *getBoxNumByIndex(i);
-        // printf("%.2f \n", (*getBoxNumByIndex(i)) * BARS_PER_BOX[i] *
-        // PRICES[i]);
-        float costPerType = currBoxNum * BARS_PER_BOX[i] * PRICES[i];
-        totalCost += costPerType;
+        // get the # boxes of each product
+        int currBoxNum = numBoxes[i];
+        
+        float costPerProduct = currBoxNum * BARS_PER_BOX[i] * PRICES[i];
+        totalCost += costPerProduct;
         printf("%3d boxes of %-12s (%d x $%.2f per box) = $ %8.2f\n",
                currBoxNum, CHOCO_BARS[i], BARS_PER_BOX[i], PRICES[i],
-               costPerType);
+               costPerProduct);
     }
     
-    printf(
-        "-----------------------------------------------------------\n"); // 59
+    printf("-----------------------------------------------------------\n");
     printf("%-47s= $ %8.2f\n", "Sub Total", totalCost);
     float tax = totalCost * HST;
-    printf("%-47s= $ %8.2f\n", "HST", tax);
+    printf("%-46s = $ %8.2f\n", "HST", tax);
     totalCost += tax;
     printf("===========================================================\n");
-    printf("%-47s= $ %8.2f\n", "Amount Due", totalCost);
+    printf("%-46s = $ %8.2f\n", "Amount Due", totalCost);
     
     return 0;
 }
