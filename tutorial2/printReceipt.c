@@ -1,18 +1,33 @@
 #include <stdio.h>
 
-int main() {
-    char items[4][14] = {"Pancake Mix", "Orange Juice", "Chocolate Bar", "Lolypop"};
-    float prices[] = {3.99, 2.97, 1, 0.5};
-    
-    float total = 0;
+#define MAX_ITEM_NAME_SIZE      25
 
-    for (int i=0; i<4; i++) {
-        printf("%-20s%4.2f\n", items[i], prices[i]);
+int main() {
+    char* items[] = {"Pancake Mix", "Orange Juice", "Chocolate Bar", "Lolypop",
+                         "24-pack Coke Classic", "plastic bag"};
+    float prices[] = {3.99, 2.97, 1, 0.5, 6.99, 0.05};
+    
+    int numItems = sizeof(items) / sizeof(char*);
+
+    float total = 0;
+    
+    for (int i=0; i<numItems; i++) {
+        printf("%-25s%8.2f\n", items[i], prices[i]);
         total += prices[i];
     }
-    printf("-------------------------\n");
-    printf("Sub Total           %4.2f\n", total);
-    printf("Tax (13% HST)       %4.2f\n", total * 0.13);
-    printf("-------------------------\n");
-    printf("Total               %4.2f\n", total * 1.13);
+    
+    for (int i = 0; i < MAX_ITEM_NAME_SIZE + 8; i++) {
+        printf("-");
+    }
+    printf("\n");
+    
+    printf("%-25s%8.2f\n", "Sub Total", total);
+    printf("%-25s%8.2f\n", "Tax (13% HST)", total * 0.13);
+
+    for (int i = 0; i < MAX_ITEM_NAME_SIZE + 8; i++) {
+        printf("-");
+    }
+    printf("\n");
+
+    printf("%-25s%8.2f\n", "Total", total * 1.13);
 }
