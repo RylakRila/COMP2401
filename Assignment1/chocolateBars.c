@@ -1,3 +1,8 @@
+/*
+* Student Name: Yuntian Ye
+* Student Number: 101322932
+*/
+
 #include <stdio.h>
 
 // const arrays to store info (name, price, # per box)

@@ -1,3 +1,8 @@
+/*
+* Student Name: Yuntian Ye
+* Student Number: 101322932
+*/
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
