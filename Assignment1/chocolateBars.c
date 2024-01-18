@@ -23,7 +23,7 @@ const int BARS_PER_BOX[5] = {24, 36, 48, 24, 36};
 const float HST = 0.13;
 
 int main() {
-    // global variable array to store number of boxes of each chocolate type
+    // array to store number of boxes of each chocolate type
     int numBoxes[5] = {0, 0, 0, 0, 0};
     
     // get the size of array by divide memory size of array by memory size of
