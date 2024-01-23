@@ -96,16 +96,23 @@ int main() {
     
     for (int i = 0; i < numPackages; i++) {
         // randomly generates coordinate for packages
+        // and store it in some temp variable in scope
         packagesCoor[i] = randCoord();
+        coordinate_t currPackage = packagesCoor[i];
         
+        // started by set smallest to largest it can get
+        // which is the city diameter
+        double smallest = 60.0; 
         // for current packages, calculate distance between
         // package and each driver, find smallest
-        double smallest = 60.0;
-        coordinate_t currPackage = packagesCoor[i];
         for (int j = 0; j < numDrivers; j++) {
-            double currDistance =
+            double currDistance = // calculate the distance
                 euclideanDistance(currPackage, driversCoor[j]);
             // printf("%.2f\n", currDistance);
+            
+            // if it is less than current smallest value
+            // set it to be smallest, and update the driver
+            // indices for current package in indices Array
             if (smallest > currDistance) {
                 smallest = currDistance;
                 driverIndices[i] = j;
