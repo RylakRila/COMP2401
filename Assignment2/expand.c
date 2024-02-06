@@ -40,12 +40,12 @@ int main(int argc, char *argv[]) {
             
             // Extract the 6-bit chunk and store it in stringOut
             // we have to mask it by 00111111 to take only the 6bits
-            unsigned char chunk = (buffer >> bitCount) & 63;
-            stringOut[numBytesOut++] = chunk;
+            stringOut[numBytesOut++] = (buffer >> bitCount) & 63;
         }
     }
     
     // cut off the redundant 6 bits 000000
+    // at the end of the strings
     if (stringOut[numBytesOut - 1] == 0) {
         numBytesOut -= 1;
     }
