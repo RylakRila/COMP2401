@@ -3,6 +3,10 @@
 
 #include "usefulTools.h"
 
+/*
+* Yuntian Ye
+* 101322932
+*/
 
 int main(int argc, char *argv[]) {
     unsigned char stringIn[MAX_STRING_SIZE+1];

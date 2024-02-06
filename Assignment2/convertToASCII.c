@@ -3,6 +3,11 @@
 
 #include "usefulTools.h"
 
+/*
+* Yuntian Ye
+* 101322932
+*/
+
 unsigned char monoCharSwitch(unsigned char *in);
 
 int main(int argc, char *argv[]) {
