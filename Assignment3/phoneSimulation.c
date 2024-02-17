@@ -80,8 +80,9 @@ int main() {
 			endTime.tm_hour = rand() % 24;
 			endTime.tm_min = rand() % 60;
 			endTime.tm_sec = rand() % 60;
-		} while (mktime(&startTime) >= mktime(&endTime) || (mktime(&endTime) - mktime(&startTime) > 7200));
+		} while (mktime(&startTime) >= mktime(&endTime) || (mktime(&endTime) - mktime(&startTime) > SEC_2H));
 		
+		// record the call
 		recordCall(&phoneNetwork, caller->number, callee->number, mktime(&startTime), mktime(&endTime));
 	}
 	

@@ -4,14 +4,13 @@
 #define PAY_PER_MINUTE    0 // Designation for phone plans that require fixed payment per minute
 #define PPM_MINUTES 100 // Number of minutes after which the price per minute is increased
 
+#define SEC_2H 7200 // Number of seconds in two hours
+
 #define BASE_PRICE 9.99 // Base cost for specific number plans
 #define EXTRA_MINUTE_PRICE 0.15 // Cost for each extra minute over the allowed minutes
-
 #define PPM_BASE 0.15 // Base cost of pay-per-minute plans per minutes, for the first 100 minutes
 #define PPM_OVER 0.35 // Over cost for pay-per-minute plans per minutes, for minutes over 100
-
 #define UNLIMITED_BASE_PRICE 34.99 // Base cost for unlimited plans
-
 #define HST 0.13 // Harmonized Sales Tax rate
 
 #define MAX_CUSTOMERS     100 // Maximum number of customers allowed in the system

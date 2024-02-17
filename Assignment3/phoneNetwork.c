@@ -6,7 +6,7 @@
 int customerID = 100001;
 
 // helper function definition
-int calcMinOver(int minAllowed, int minUsed);
+unsigned int calcMinOver(unsigned short minAllowed, unsigned short minUsed);
 
 char registerCustomer(PhoneNetworkType *phoneNetwork, char *name, 
                       char *phoneNum, int minAllowed) {
@@ -50,7 +50,7 @@ void displayCharges(PhoneNetworkType *phoneNetwork) {
         
         unsigned short minutesAllowed = phoneNetwork->customers[i].plan.minutesAllowed;
         unsigned short minutesUsed = phoneNetwork->customers[i].plan.minutesUsed;
-        int minutesOver = 0; // minutes over the allowed minutes
+        unsigned int minutesOver = 0; // minutes over the allowed minutes
         
         float basePrice;
         float extraPrice;
@@ -103,7 +103,8 @@ void displayCharges(PhoneNetworkType *phoneNetwork) {
     }
 }
 
-int calcMinOver(int minAllowed, int minUsed) {
+// calculate the number of minutes over the allowed minutes
+unsigned int calcMinOver(unsigned short minAllowed, unsigned short minUsed) {
     if (minUsed > minAllowed) {
         return minUsed - minAllowed;
     }
