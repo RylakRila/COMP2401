@@ -1,3 +1,5 @@
+#include <time.h>
+
 #define UNLIMITED         65535 // Designation for phone plans with unlimited calling
 #define PAY_PER_MINUTE    0 // Designation for phone plans that require fixed payment per minute
 #define PPM_MINUTES 100 // Number of minutes after which the price per minute is increased

@@ -167,6 +167,7 @@ char recordCall(PhoneNetworkType* phoneNetwork, char *callerNum, char *receiverN
     phoneNetwork->calls[phoneNetwork->numCalls].startTime = startTime;
     phoneNetwork->calls[phoneNetwork->numCalls].endTime = endTime;
     phoneNetwork->numCalls += 1;
+    return 1;
 }
 
 void displayCallLog(PhoneNetworkType *PhoneNetwork) {
