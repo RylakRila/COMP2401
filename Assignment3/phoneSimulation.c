@@ -5,17 +5,17 @@
 
 #include "phoneNetwork.h"
 
-char registerCustomer(PhoneNetworkType *phoneNetwork, char *name, 
-                      char *phoneNum, int minAllowed);
+// char registerCustomer(PhoneNetworkType *phoneNetwork, char *name, 
+//                       char *phoneNum, int minAllowed);
 
-void displayCharges(PhoneNetworkType *phoneNetwork);
+// void displayCharges(PhoneNetworkType *phoneNetwork);
 
-void resetMonth(PhoneNetworkType *phoneNetwork);
+// void resetMonth(PhoneNetworkType *phoneNetwork);
 
-char recordCall(PhoneNetworkType* phoneNetwork, char *callerNum, 
-				char *receiverNum, time_t startTime, time_t endTime);
+// char recordCall(PhoneNetworkType* phoneNetwork, char *callerNum, 
+// 				char *receiverNum, time_t startTime, time_t endTime);
 
-void displayCallLog(PhoneNetworkType *PhoneNetwork);
+// void displayCallLog(PhoneNetworkType *PhoneNetwork);
 
 // This the sample data for 20 customers to be used for testing
 char *SampleNames[] = {"Rob Banks", "April Rain", "Rita Book", "Sue Permann", "Tim Bur", 

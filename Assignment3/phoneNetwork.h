@@ -48,3 +48,15 @@ typedef struct {
 	CallType        calls[MAX_CALLS];       // data for all calls that took place this month
 	unsigned int	numCalls;                  // number of calls that took place this month
 } PhoneNetworkType;
+
+char registerCustomer(PhoneNetworkType *phoneNetwork, char *name, 
+                      char *phoneNum, int minAllowed);
+
+void displayCharges(PhoneNetworkType *phoneNetwork);
+
+void resetMonth(PhoneNetworkType *phoneNetwork);
+
+char recordCall(PhoneNetworkType* phoneNetwork, char *callerNum, 
+				char *receiverNum, time_t startTime, time_t endTime);
+
+void displayCallLog(PhoneNetworkType *PhoneNetwork);
