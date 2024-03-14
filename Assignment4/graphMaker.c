@@ -41,6 +41,10 @@ int isIntersect(Vertex *vertex1, Vertex *vertex2, Environment *env) {
 int pointInObstacle(Environment *env, short x, short y);
 void findKNearNeighbor(Environment *env, Vertex* v);
 
+// func declaration for clean up
+void freeVerticesArray(Environment *env);
+void freeObstaclesArray(Environment *env);
+
 // Create a graph using the numVertices and k parameters of the given environment.
 void createGraph(Environment *env) {
 	// Allocate memory for the vertices array
@@ -99,7 +103,7 @@ void findKNearNeighbor(Environment *env, Vertex* v) {
 	}
 	
 	// Array to hold k nearest neighbours
-	Vertex** nearest = (Vertex **)malloc(env->k * sizeof(Vertex *));
+	Vertex** nearest = (Vertex **)malloc((env->k) * sizeof(Vertex *));
 	if (nearest == NULL) {
 		printf("Error: malloc failed to allocate memory for nearest\n");
 		exit(-1);
@@ -158,6 +162,7 @@ void findKNearNeighbor(Environment *env, Vertex* v) {
 		lastNbr = newNeighbour;
 	}
 	
+	// free the nearest array since it's no longer needed
 	free(nearest);
 }
 
@@ -167,5 +172,31 @@ void cleanupEverything(Environment *env) {
 	// ...
 	// WRITE YOUR CODE HERE
 	// ...
-	
+	freeVerticesArray(env);
+	freeObstaclesArray(env);
+	free(env);
+}
+
+void freeUpVertex(Vertex *v) {
+	Neighbour *nbr= v->neighbours;
+	while (nbr != NULL) {
+		Neighbour *nextNbr = nbr->next;
+		free(nbr);
+		nbr = nextNbr;
+	}
+	free(v->neighbours);
+	free(v);
+}
+
+void freeVerticesArray(Environment *env) {
+	for (int i = 0; i < env->numVertices; i++) {
+		freeUpVertex(env->vertices[i]);
+	}
+	free(env->vertices);
+	env->vertices = NULL;
+}
+
+void freeObstaclesArray(Environment *env) {
+	free(env->obstacles);
+	env->obstacles = NULL;
 }
