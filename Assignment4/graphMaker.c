@@ -104,22 +104,18 @@ void findKNearNeighbor(Environment *env, Vertex* v) {
 		printf("Error: malloc failed to allocate memory for nearest\n");
 		exit(-1);
 	}
-	int arraySize = 0;
+	// make the first k vertices the nearest
+	for (int i = 0; i < env->k; i++) {
+		nearest[i] = env->vertices[i];
+	}
 	
 	// go through each vertex except the vertex itself
 	for (int i = 0; i < env->numVertices; i++) {
 		if (v == env->vertices[i]) continue;
 		
 		Vertex* currentVertex = env->vertices[i];
-		if (isIntersect(v, currentVertex, env)) continue;
 		
 		int distance = squareDistance(v, currentVertex);
-		
-		if (arraySize < env->k) {
-			nearest[arraySize] = currentVertex;
-			arraySize++;
-			continue;
-		}
 		
 		// go through the nearest array and check 
 		// if the current vertex is closer to any vertex in the array
@@ -137,6 +133,10 @@ void findKNearNeighbor(Environment *env, Vertex* v) {
 	for (int i = 0; i < env->k; i++) {
 		Vertex *nbr = nearest[i];
 		
+		if (isIntersect(v, nbr, env)) {
+			continue;
+		}
+		
 		Neighbour *newNeighbour = (Neighbour *)malloc(sizeof(Neighbour));
 		if (newNeighbour == NULL) {
 			printf("Error: malloc failed to allocate memory for newNeighbour\n");
@@ -146,7 +146,7 @@ void findKNearNeighbor(Environment *env, Vertex* v) {
 		newNeighbour->vertex = nbr;
 		newNeighbour->next = NULL;
 		
-		// if it's the first neighbour, add it to the vertex's neighbours
+		// if it's the first un-intersect neighbour, add it to the vertex's neighbours
 		if (lastNbr == NULL) {
 			v->neighbours = newNeighbour;
 		// if it's not the first neighbour, add it to the last neighbour's next
