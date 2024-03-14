@@ -180,7 +180,6 @@ void freeUpVertex(Vertex *v) {
 		free(nbr);
 		nbr = nextNbr;
 	}
-	free(v->neighbours);
 	free(v);
 }
 
