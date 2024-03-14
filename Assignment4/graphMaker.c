@@ -96,11 +96,7 @@ int pointInObstacle(Environment *env, short x, short y) {
 }
 
 void findKNearNeighbor(Environment *env, Vertex* v) {
-	v->neighbours = (Neighbour *)malloc(sizeof(Neighbour));
-	if (v->neighbours == NULL) {
-		printf("Error: malloc failed to allocate memory for neighbours\n");
-		exit(-1);
-	}
+	v->neighbours = NULL;
 	
 	// Array to hold k nearest neighbours
 	Vertex** nearest = (Vertex **)malloc((env->k) * sizeof(Vertex *));
