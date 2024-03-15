@@ -9,8 +9,15 @@ int main() {
 	if (pid == 0) {
 		fork();
 		printf("PID = %d\n", getpid());
+		
+		sleep(10);
 	}
 	pid = fork();
 	printf("PID = %d\n", getpid());
-	sleep(10);
+	
+	if (pid != 0)
+		sleep(1);
+	
+	sleep(1);
+	printf("DONE: %d\n", getpid());
 }
