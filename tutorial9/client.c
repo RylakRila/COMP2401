@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
   
   // ADD THE INTERESTING STUFF HERE
   // Check if the user entered the "stop" command
-  if (strcmp(argv[1],"stop") == 0) {
+  if (strcmp(argv[1], "stop") == 0) {
     buffer[0] = STOP;
     send(clientSocket, buffer, 1, MSG_NOSIGNAL);
   }
