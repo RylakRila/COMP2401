@@ -17,12 +17,14 @@ void *runTimer(void *r) {
 	
 	while(1) {
 		usleep(30000); // wait 1/30th of a second ... roughly
+		sem_wait(&restaurant->LineupSemaphore);
 		for (int i = 0; i < MAX_CUSTOMERS; i++) {
 			if (restaurant->driveThruLine[i].order.orderNumber != NO_ORDER_YET &&
 			    restaurant->driveThruLine[i].order.secondsUntilReady > 0) {
 				restaurant->driveThruLine[i].order.secondsUntilReady--;
 			}
 		}
+		sem_post(&restaurant->LineupSemaphore);
 	}
 }
 

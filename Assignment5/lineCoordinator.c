@@ -16,6 +16,8 @@ void *runLineCoordination(void *r) {
 	while(1) {
 		sleep(1); // a slight delay so that we don't use up a lot of CPU time
 		
+		sem_wait(&restaurant->LineupSemaphore);
+		
 		// signal the customer to pick up their order and leave
 		if (restaurant->driveThruLine[9].customerPid != 0 &&
 			restaurant->driveThruLine[9].order.secondsUntilReady <= 0) {
@@ -27,11 +29,12 @@ void *runLineCoordination(void *r) {
 		// move customers in the line-up to the right
 		if (restaurant->driveThruLine[9].order.orderNumber == NO_ORDER_YET) {
 			for (int i = 8; i >= 5; i--) {
-				if (restaurant->driveThruLine[i].order.orderNumber != NO_ORDER_YET) {
+				if (restaurant->driveThruLine[i].order.orderNumber != NO_ORDER_YET &&
+				    restaurant->driveThruLine[i + 1].order.orderNumber == NO_ORDER_YET) {
 					restaurant->driveThruLine[i + 1] = restaurant->driveThruLine[i];
 					if (i == 5) {
-						restaurant->driveThruLine[5].customerPid = 0;
-						restaurant->driveThruLine[5].order.orderNumber = NO_ORDER_YET;
+						restaurant->driveThruLine[i].customerPid = 0;
+						restaurant->driveThruLine[i].order.orderNumber = NO_ORDER_YET;
 					}
 				}
 			}
@@ -52,7 +55,8 @@ void *runLineCoordination(void *r) {
 		// move customers in the line-up to the ordering position
 		if (restaurant->driveThruLine[4].customerPid == 0) {
 			for (int i = 3; i >= 1; i--) {
-				if (restaurant->driveThruLine[i].customerPid != 0) {
+				if (restaurant->driveThruLine[i].customerPid != 0 &&
+				    restaurant->driveThruLine[i + 1].customerPid == 0) {
 					restaurant->driveThruLine[i + 1] = restaurant->driveThruLine[i];
 					if (i == 1) restaurant->driveThruLine[i].customerPid = 0;
 				}
@@ -75,5 +79,7 @@ void *runLineCoordination(void *r) {
 			int result = kill(restaurant->driveThruLine[4].customerPid, SIGUSR1);
 			restaurant->driveThruLine[4].startedOrder = 1;
 		}
+		
+		sem_post(&restaurant->LineupSemaphore);
 	}
 }

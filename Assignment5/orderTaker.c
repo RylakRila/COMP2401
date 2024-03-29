@@ -100,6 +100,7 @@ void startAcceptingCustomers(Restaurant *restaurant) {
 				close(clientSocket);
 				break;
 			case ARRIVED:
+				sem_wait(&(restaurant->LineupSemaphore));
 				if (restaurant->driveThruLine[0].customerPid != 0) {
 					response[0] = DENIED;
 					printf("ORDER TAKER: Customer denied\n");
@@ -120,9 +121,11 @@ void startAcceptingCustomers(Restaurant *restaurant) {
 					
 					send(clientSocket, response, 1, MSG_NOSIGNAL);
 				}
+				sem_post(&(restaurant->LineupSemaphore));
 				close(clientSocket);
 				break;
 			case PLACE_ORDER:
+				sem_wait(&(restaurant->LineupSemaphore));
 				restaurant->driveThruLine[4].order.numItems = inBuffer[1];
 				printf("Number of items: %d\n", inBuffer[1]);
 				
@@ -145,6 +148,7 @@ void startAcceptingCustomers(Restaurant *restaurant) {
 				}
 				restaurant->driveThruLine[4].order.secondsUntilReady = total + maxCookTime;
 				printf("takes %d to finish order %d\n", total + maxCookTime, restaurant->driveThruLine[4].order.orderNumber);
+				sem_post(&(restaurant->LineupSemaphore));
 				close(clientSocket);
 				break;
 			default:
